@@ -1,0 +1,251 @@
+import java.io.*;
+import java.util.*;
+/**
+ * Create a vending machine that read the coins the customer enters, 
+ * add up the money total, and then see if it’s enough to purchase 
+ * the item of their choosing. 
+ *
+ * @Caleb Rollf
+ * @version 1
+ */
+
+public class Vending
+{
+    //create variables and finals
+    public final int TWENTY = 20, TEN = 10, FIVE = 5, ONE = 1;
+    public final double QUARTER = .25, DIME = .10, NICKEL = .05, PENNY = .01;
+
+    int choice;
+    double total;
+    double change;
+
+    Scanner myFile;
+    Scanner in;
+
+    //create ArrayList
+    ArrayList <String> item;
+    ArrayList <Double> price;
+
+    public Vending()
+    {   //initializes variables and loads file
+        // initialise  variables
+        in = new Scanner(System.in);
+        item = new ArrayList <String> ();
+        
+        
+        choice = 0;
+        total = change = 0;
+
+        //try and catch method to load file items.txt, will throw IOException if error
+        try
+        {
+            myFile = new Scanner(new File("items.txt"));
+        }//end of try
+        catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        }//end of catch
+    }//end of Vending()
+
+    public void read()
+    {   
+        //method read will add text from myFile into ArrayList item
+        while(myFile.hasNextLine())
+        {
+            item.add(myFile.nextLine());
+        }//end of while loop
+    }//end of public method read
+
+    public void printItems()
+    {
+        //method printItems will display every item from ArrayList item
+        for(int i = 0; i < item.size(); i++)
+        {
+            System.out.println(item.get(i));
+        }//end of for loop
+
+        //Add spacing to look neater
+        System.out.println("\n");
+    }//end of public method printItems
+
+    public void getPrice()
+    {
+        for(int i = 0; i < item.size(); i++)
+        {
+            System.out.print("Enter the price of " + item.get(i) + ": $");
+            price.add(in.nextDouble());
+
+            //Add spacing to look neater
+            System.out.println();
+        }
+    }
+
+    public void addMoney()
+    {
+        System.out.println("What currency or coin are you adding to make your purchase?");
+        System.out.println("1. 20 dollar bill");
+        System.out.println("2. 10 dollar bill");
+        System.out.println("3. 5 dollar bill");
+        System.out.println("4. 1 dollar bill");
+        System.out.println("5. Quarter");
+        System.out.println("6. Dime");
+        System.out.println("7. Nickel");
+        System.out.println("8. Penny");
+        System.out.println("9. Stop Adding Money");
+        System.out.println();
+
+        do
+        {
+            System.out.print("Enter Selection: ");
+            choice = in.nextInt();
+
+            switch(choice)
+            {
+                case 1:
+                total = total + TWENTY;
+                System.out.printf("%4s%4s","Money inserted: $", total);
+                System.out.println();
+                break;
+                
+                case 2:
+                total = total + TEN;
+                System.out.printf("%4s%4s","Money inserted: $", total);
+                System.out.println();
+                break;
+                
+                case 3:
+                total = total + FIVE;
+                System.out.printf("%4s%4s","Money inserted: $", total);
+                System.out.println();
+                break;
+                
+                case 4:
+                total = total + ONE;
+                System.out.printf("%4s%4s","Money inserted: $", total);
+                System.out.println();
+                break;
+                
+                case 5:
+                total = total + QUARTER;
+                System.out.printf("%4s%4s","Money inserted: $", total);
+                System.out.println();
+                break;
+                
+                case 6:
+                total = total + DIME;
+                System.out.printf("%4s%4s","Money inserted: $", total);
+                System.out.println();
+                break;
+                
+                case 7:
+                total = total + NICKEL;
+                System.out.printf("%4s%4s","Money inserted: $", total);
+                System.out.println();
+                break;
+                
+                case 8:
+                total = total + PENNY;
+                System.out.printf("%4s%4s", "Money inserted: $", total);
+                System.out.println();
+                break;
+            }
+
+            System.out.println();
+        }
+        while(choice != 9);
+        System.out.printf("%4s%4s", "Money inserted: $", total);
+        System.out.println("\n");
+        choice = 0;
+    }
+
+    public void buy()
+    {
+        for(int i = 0; i < item.size(); i++)
+        {
+            System.out.println((i + 1) + ". " + item.get(i) + " $" + price.get(i));
+        }
+        System.out.println("6. Quit\n");
+
+        do
+        {
+            System.out.println("Enter selection: ");
+            choice = in.nextInt();
+            
+            switch(choice)
+            {
+                case 1:
+                change = total - price.get(choice - 1);
+                if(change > 0)
+                {
+                    System.out.println("You bought " + item.get(choice - 1));
+                }
+                else
+                {
+                    System.out.println("Insufficient funds for " + item.get(choice - 1));
+                }
+                System.out.println("Change: " + change);
+                System.out.println();
+                break;
+                
+                case 2:
+                change = total - price.get(choice - 1);
+                if(change > 0)
+                {
+                    System.out.println("You bought " + item.get(choice - 1));
+                }
+                else
+                {
+                    System.out.println("Insufficient funds for " + item.get(choice - 1));
+                }
+                System.out.println("Change: " + change);
+                System.out.println();
+                break;
+                
+                case 3:
+                change = total - price.get(choice - 1);
+                if(change > 0)
+                {
+                    System.out.println("You bought " + item.get(choice - 1));
+                }
+                else
+                {
+                    System.out.println("Insufficient funds for " + item.get(choice - 1));
+                }
+                System.out.println("Change: " + change);
+                System.out.println();
+                break;
+                
+                case 4:
+                change = total - price.get(choice - 1);
+                if(change > 0)
+                {
+                    System.out.println("You bought " + item.get(choice - 1));
+                }
+                else
+                {
+                    System.out.println("Insufficient funds for " + item.get(choice - 1));
+                }
+                System.out.println("Change: " + change);
+                System.out.println();
+                break;
+                
+                case 5:
+                change = total - price.get(choice - 1);
+                if(change > 0)
+                {
+                    System.out.println("You bought " + item.get(choice - 1));
+                }
+                else
+                {
+                    System.out.println("Insufficient funds for " + item.get(choice - 1));
+                }
+                System.out.println("Change: " + change);
+                System.out.println();
+                break;
+            }
+            total = change;
+        }
+        while(choice != 6);
+        System.out.println("\nHave a Good Day!");
+    }
+}
